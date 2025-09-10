@@ -18,7 +18,8 @@ local function MinusStack(Data : MinusData)
 		local Minus = math.clamp(Stack - 1, 0, 256)
 		if Stack > 0 then
 			Object:SetAttribute(Name, Minus)
-		else
+		end
+		if Minus == 0 then
 			Object:SetAttribute(Name, nil)
 		end
 	end
