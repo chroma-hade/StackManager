@@ -17,10 +17,7 @@ local function MinusStack(Data : MinusData)
 		local Stack = Object:GetAttribute(Name) or 0
 		local Minus = math.clamp(Stack - 1, 0, 256)
 		if Stack > 0 then
-			Object:SetAttribute(Name, Minus)
-		end
-		if Minus == 0 then
-			Object:SetAttribute(Name, nil)
+			Object:SetAttribute(Name, Minus == 0 and nil or Minus)
 		end
 	end
 end
