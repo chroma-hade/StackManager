@@ -60,8 +60,9 @@ local function ResetInfStack(Object : Instance)
 	if Store then
 		for Name, Value in Store do
 			local Stack = Object:GetAttribute(Name)
+			local Minus = (Stack - Value)
 			if Stack then
-				Object:SetAttribute(Name, Stack - Value)
+				Object:SetAttribute(Name, Minus > 0 and Minus or nil)
 			end
 			StackStore[Object][Name] = nil
 		end
