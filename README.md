@@ -1,4 +1,4 @@
-Example down blow.
+Example down below.
 
 ```lua
 local StackManager = require("ModuleLocation")
