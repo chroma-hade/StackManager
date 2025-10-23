@@ -19,7 +19,7 @@ local function MinusStack(Object : Instance, Name : string)
 	end
 end
 
-local function HandleStack(Object : Instance, Name : string, LifeTime : number, Debug : boolean)
+local function HandleStack(Object : Instance, Name : string, LifeTime : number)
 	local Tick = tick()
 	local Ignore = false
 	repeat task.wait()
@@ -38,13 +38,12 @@ end
 
 local function AddStack(Object : Instance, Data : StackData)
 	local Name = Data["Name"]
-	local LifeTime = Data["LifeTime"] or 1
-	local Debug = Data["Debug"]
+	local LifeTime = Data["LifeTime"] or 1]
 	if Object and typeof(Name) == "string" then
 		local Stack = Object:GetAttribute(Name) or 0
 		Object:SetAttribute(Name, Stack + 1)
 		if typeof(LifeTime) == "number" then
-			task.defer(HandleStack, Object, Name, LifeTime, Debug)
+			task.defer(HandleStack, Object, Name, LifeTime)
 		else
 			local Plus = StackStore[Object] and StackStore[Object][Name] or 0
 			if not StackStore[Object] then
