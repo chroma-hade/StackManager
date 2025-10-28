@@ -38,7 +38,7 @@ end
 
 local function AddStack(Object : Instance, Data : StackData)
 	local Name = Data["Name"]
-	local LifeTime = Data["LifeTime"] or 1]
+	local LifeTime = Data["LifeTime"] or 1
 	if Object and typeof(Name) == "string" then
 		local Stack = Object:GetAttribute(Name) or 0
 		Object:SetAttribute(Name, Stack + 1)
