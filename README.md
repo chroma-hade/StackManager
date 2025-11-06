@@ -19,4 +19,7 @@ StackManager.AddStack(Object, {
 
 -- Remove stack (inculde infinite lifetime) from object by stack name.
 StackManager.ResetStack(Character, "Freeze")
+
+-- Only remove infinite time stack
+StackManager.ResetInfStack(Character, "Playing")
 ```
