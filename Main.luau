@@ -19,7 +19,7 @@ local function MinusStack(Object : Instance, Name : string)
 	end
 end
 
-local function InfTimeStack(Object : Instance, Name : string)
+local function AddInfStack(Object : Instance, Name : string)
 	local Plus = StackStore[Object] and StackStore[Object][Name] or 0
 	if not StackStore[Object] then
 		StackStore[Object] = {}
@@ -53,7 +53,7 @@ local function AddStack(Object : Instance, Data : StackData)
 		if typeof(LifeTime) == "number" then
 			task.defer(HandleStack, Object, Name, LifeTime)
 		else
-			InfTimeStack(Object, Name)
+			AddInfStack(Object, Name)
 		end
 	end
 end
