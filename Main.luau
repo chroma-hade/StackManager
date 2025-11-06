@@ -19,6 +19,14 @@ local function MinusStack(Object : Instance, Name : string)
 	end
 end
 
+local function InfTimeStack(Object : Instance, Name : string)
+	local Plus = StackStore[Object] and StackStore[Object][Name] or 0
+	if not StackStore[Object] then
+		StackStore[Object] = {}
+	end
+	StackStore[Object][Name] = Plus + 1
+end
+
 local function HandleStack(Object : Instance, Name : string, LifeTime : number)
 	local Tick = tick()
 	local Ignore = false
@@ -45,26 +53,20 @@ local function AddStack(Object : Instance, Data : StackData)
 		if typeof(LifeTime) == "number" then
 			task.defer(HandleStack, Object, Name, LifeTime)
 		else
-			local Plus = StackStore[Object] and StackStore[Object][Name] or 0
-			if not StackStore[Object] then
-				StackStore[Object] = {}
-			end
-			StackStore[Object][Name] = Plus + 1
+			InfTimeStack(Object, Name)
 		end
 	end
 end
 
 local function ResetInfStack(Object : Instance)
-	local Store = StackStore[Object]
-	if Store then
-		for Name, Value in Store do
-			local Stack = Object:GetAttribute(Name)
-			if Stack then
-				local Minus = (Stack - Value)
-				Object:SetAttribute(Name, Minus > 0 and Minus or nil)
-			end
-			StackStore[Object][Name] = nil
+	local Store = StackStore[Object] or {}
+	for Name : string, Value : number in Store do
+		local Stack = Object:GetAttribute(Name)
+		if Stack then
+			local Minus = (Stack - Value)
+			Object:SetAttribute(Name, Minus > 0 and Minus or nil)
 		end
+		StackStore[Object][Name] = nil
 	end
 end
 
