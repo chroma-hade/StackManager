@@ -12,11 +12,12 @@ type MinusData = {
 }
 
 local function MinusStack(Object : Instance, Name : string)
-	if Object and Name then
-		local Stack = Object:GetAttribute(Name) or 0
-		local Minus = math.clamp(Stack - 1, 0, 256)
-		Object:SetAttribute(Name, Minus > 0 and Minus or nil)
+	if not Object or not Name then
+		return
 	end
+	local Stack = Object:GetAttribute(Name) or 0
+	local Minus = math.clamp(Stack - 1, 0, 256)
+	Object:SetAttribute(Name, Minus > 0 and Minus or nil)
 end
 
 local function AddInfStack(Object : Instance, Name : string)
@@ -47,25 +48,24 @@ end
 local function AddStack(Object : Instance, Data : StackData)
 	local Name = Data["Name"]
 	local LifeTime = Data["LifeTime"] or 1
-	if Object and typeof(Name) == "string" then
-		local Stack = Object:GetAttribute(Name) or 0
-		Object:SetAttribute(Name, Stack + 1)
-		if typeof(LifeTime) == "number" then
-			task.defer(HandleStack, Object, Name, LifeTime)
-		else
-			AddInfStack(Object, Name)
-		end
+	if not Object or typeof(Name) ~= "string" then
+		return
+	end
+	local Stack = Object:GetAttribute(Name) or 0
+	Object:SetAttribute(Name, Stack + 1)
+	if typeof(LifeTime) == "number" then
+		task.defer(HandleStack, Object, Name, LifeTime)
+	else
+		AddInfStack(Object, Name)
 	end
 end
 
 local function ResetInfStack(Object : Instance)
 	local Store = StackStore[Object] or {}
 	for Name : string, Value : number in Store do
-		local Stack = Object:GetAttribute(Name)
-		if Stack then
-			local Minus = (Stack - Value)
-			Object:SetAttribute(Name, Minus > 0 and Minus or nil)
-		end
+		local Stack = Object:GetAttribute(Name) or 0
+		local Minus = (Stack - Value)
+		Object:SetAttribute(Name, Minus > 0 and Minus or nil)
 		StackStore[Object][Name] = nil
 	end
 end
