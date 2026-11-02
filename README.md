@@ -1,6 +1,6 @@
 # StackManager
 
-Stackable attribute flags for Roblox! Put `Stun` on a character twice, and it stays stunned until both are gone. One ModuleScript, under 100 lines.
+Stackable attribute flags for Roblox! Put `Stun` on a character twice, and it stays stunned until both are gone. One ModuleScript, a little over 100 lines.
 
 Here's the problem it fixes. Two moves each stun someone for a second. The first one ends, sets `Stun` back to nil, and the second stun just vanishes halfway through. StackManager counts them, so the attribute only goes away when the last one does☆
 
@@ -23,7 +23,6 @@ Or just copy `src/init.luau` into your project.
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local StackManager = require(ReplicatedStorage.Packages.StackManager)
-
 StackManager.AddStack(Character, "Stun", 1)
 ```
 
@@ -43,7 +42,6 @@ Leave out the time and the stack stays until you remove it. `AddStack` hands you
 
 ```lua
 local Blocking = StackManager.AddStack(Character, "Blocking")
-
 Blocking:Destroy()
 ```
 
