@@ -1,0 +1,8 @@
+[package]
+name = "chroma-hade/stackmanager"
+version = "1.0.0"
+registry = "https://github.com/UpliftGames/wally-index"
+realm = "shared"
+license = "MIT"
+description = "Stackable attribute flags for Roblox. Two stuns on one character, and it stays stunned until both are gone."
+exclude = ["StackManager.rbxm", "aftman.toml"]
